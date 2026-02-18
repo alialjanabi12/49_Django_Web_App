@@ -1,5 +1,9 @@
 from django.shortcuts import render
+
+# the ". " means "from the current directory"
 from .forms import ApplicationForm
+from .models import Database_From
+from django.contrib import messages
 
 
 #
@@ -18,8 +22,16 @@ def index(request):
             email = form.cleaned_data["email"]
             date = form.cleaned_data["date"]
             occupation = form.cleaned_data["occupation"]
-            print(first_name, last_name, email, date, occupation)
-        else:
-            print(form.errors)
+            # print(first_name, last_name, email, date, occupation)
+
+            Database_From.objects.create(
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                date=date,
+                occupation=occupation,
+            )
+
+            messages.success(request, "Your application has been submitted")
 
     return render(request, "index.html")

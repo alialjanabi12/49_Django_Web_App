@@ -82,7 +82,9 @@
           </div>
         </div>
         <button class="btn btn-secondary mb-4" type="submit">Submit</button>
-        <div class="alert alert-success"></div>
+        {% if messages %} {% for message in messages %}
+        <div class="alert alert-success mb-4" role="alert">{{ message }}</div>
+        {% endfor %} {% endif %}
       </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
