@@ -1,9 +1,11 @@
+from math import e
 from django.shortcuts import render
 
 # the ". " means "from the current directory"
 from .forms import ApplicationForm
 from .models import Database_From
 from django.contrib import messages
+from django.core.mail import EmailMessage
 
 
 #
@@ -31,6 +33,14 @@ def index(request):
                 date=date,
                 occupation=occupation,
             )
+
+            message_body = f" A new job application was submitted.\nThank you,\n{first_name} {last_name} "
+            email_message = EmailMessage(
+                subject="New Job Application",
+                body=message_body,
+                to=[email],
+            )
+            email_message.send()
 
             messages.success(request, "Your application has been submitted")
 
